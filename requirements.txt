@@ -1,5 +1,5 @@
+numpy==1.23.5
+essentia==2.1b6.dev606
 fastapi
 uvicorn
 requests
-numpy
-essentia
