@@ -1,0 +1,24 @@
+from fastapi import FastAPI, Query
+from pydantic import BaseModel
+import requests
+import essentia.standard as es
+import os
+
+app = FastAPI()
+
+class KeyResult(BaseModel):
+    key: str
+    scale: str
+    confidence: float
+
+@app.get("/detect-key", response_model=KeyResult)
+def detect_key(url: str = Query(...)):
+    filename = "temp_audio.mp3"
+    with open(filename, "wb") as f:
+        f.write(requests.get(url).content)
+
+    audio = es.MonoLoader(filename=filename)()
+    key, scale, strength = es.KeyExtractor()(audio)
+    os.remove(filename)
+    
+    return KeyResult(key=key, scale=scale, confidence=strength)
