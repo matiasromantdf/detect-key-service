@@ -28,7 +28,7 @@ def detect_key(url: str = Query(...)):
         f.write(requests.get(url).content)
 
     audio = es.MonoLoader(filename=filename)()
-    key, scale, strength = es.KeyExtractor()(audio)
+    tono, escala, confianza = es.KeyExtractor()(audio)
     os.remove(filename)
     
     return KeyResult(key=key, scale=scale, confidence=strength)
