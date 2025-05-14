@@ -17,9 +17,9 @@ app.add_middleware(
 )
 
 class KeyResult(BaseModel):
-    key: str
-    scale: str
-    confidence: float
+    tono: str
+    escala: str
+    confianza: float
 
 @app.get("/detect-key", response_model=KeyResult)
 def detect_key(url: str = Query(...)):
