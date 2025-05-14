@@ -1,10 +1,20 @@
 from fastapi import FastAPI, Query
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import requests
 import essentia.standard as es
 import os
 
 app = FastAPI()
+
+# Agregá esto para permitir CORS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Podés reemplazar "*" por el dominio de tu frontend
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 class KeyResult(BaseModel):
     key: str
