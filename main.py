@@ -7,10 +7,9 @@ import os
 
 app = FastAPI()
 
-# Agregá esto para permitir CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Podés reemplazar "*" por el dominio de tu frontend
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -31,4 +30,4 @@ def detect_key(url: str = Query(...)):
     tono, escala, confianza = es.KeyExtractor()(audio)
     os.remove(filename)
     
-    return KeyResult(key=key, scale=scale, confidence=strength)
+    return KeyResult(tono=tono, escala=escala, confianza=confianza)
